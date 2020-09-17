@@ -125,7 +125,7 @@ class RewardProvider:
     def step(self):
         self.t += 1
         self.check_nbw()
-        self.check_client()
+        #self.check_client()
         if not settings.PARALLEL:
             for client in self.clients:
                 if client.enabled:
