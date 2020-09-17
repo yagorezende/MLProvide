@@ -1,9 +1,10 @@
 import requests, json
 from pprint import pprint
+from . import settings
 
 
 class RyuApi:
-    def __init__(self, _url= 'http://127.0.0.1:8080', _dc=1):
+    def __init__(self, _url= f'http://{settings.RYU_IP}:8080', _dc=1):
         self.URL = _url
         self.dc = _dc
 
@@ -17,6 +18,7 @@ class RyuApi:
 
     def change_meter(self, dpid=1, meter_id=1, rate=300, a_type="DROP", flag="KBPS", bsize=10):
         if int(rate) > 0:
+            bsize = int(rate*1.2)
             #print('change meter')
             data = json.dumps(dict(
                     dpid=int(dpid),
@@ -62,7 +64,7 @@ class RyuApi:
                         dict(
                             type="DROP",
                             rate=rate,
-                            burst_size=10
+                            burst_size=int(rate*1.2)
                         )
                     ]
                 ))
@@ -79,8 +81,8 @@ class RyuApi:
             "dpid": dpid,
             "priority": 4,
             "match":{
-                #"nw_dst": f"10.0.0.{self.dc}",
-                "nw_src": f"10.0.0.{host}",
+                "nw_dst": f"10.0.0.{self.dc}",
+                #"nw_src": f"10.0.0.{host}",
                 "dl_type": 2048,
             },
             "actions":[
@@ -108,7 +110,7 @@ class RyuApi:
         sw = response.json()[str(dpid)]
         for i in sw:
             if i.get('port_no') == int(port_no) and port_no == 1:
-                return i.get('tx_bytes')
+                return i.get('rx_bytes')
             elif i.get('port_no') == int(port_no):
                 return i.get('rx_bytes')
         return 0

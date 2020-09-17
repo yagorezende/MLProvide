@@ -23,6 +23,7 @@ class Client:
         self.old_bytes = 0
         self.enabled = True
         self.old_time = time.time()
+        self.now_speed = 0
 
     def __str__(self):
         return f"CLIENT:{self.id}"
@@ -34,10 +35,12 @@ class Client:
 
         # install meter
         #self.rapi.add_meter(self.dpid, self.id, int(self.bw / 1000))
-        self.rapi.add_meter(self.dpid, self.id, 7*int(settings.MAX_SERVER_LOAD/1000))
+
+        rate = 500000
+        self.rapi.add_meter(self.dpid, self.id, rate)
 
         #self.set_rate(2*self.bw/1000)
-        self.set_rate(2*settings.MAX_SERVER_LOAD/1000)
+        self.set_rate(rate)
 
     def get_rate(self, raw=False):
         if raw:
@@ -48,15 +51,28 @@ class Client:
         self.rapi.change_meter(self.dpid, self.id, rate)
 
     def port_stats(self):
-        return self.rapi.get_port_stats(self.dc.id, port_no=self.id)
+        return self.rapi.get_port_stats(1, port_no=self.id)
 
     def speed(self):
         new_time = time.time()
         new_value = self.port_stats()
-        print("PORT STATS", new_value - self.old_bytes)
         speed = (new_value - self.old_bytes) / (new_time - self.old_time)
+        self.now_speed = speed * 8
+        print(
+            "PORT STATS",
+            self.id,
+            new_value,
+            self.old_bytes ,
+            #(new_value - self.old_bytes),
+            #new_time - self.old_time,
+            #speed,
+            #speed * 8,
+            self.now_speed
+        )
         self.old_time = new_time
         self.old_bytes = new_value
+
+
         return speed*8
 
     def get_nbw(self):

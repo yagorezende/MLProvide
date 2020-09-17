@@ -29,13 +29,13 @@ class RewardProvider:
     def dump_data(self):
         f = open(self.filename, "a")
         server_load = self.dc.load
-        mean_rate = 0
-        for client in self.clients:
-            mean_rate += client.get_rate()
-        mean_rate = mean_rate/len(self.clients)
+        #mean_rate = 0
+        #for client in self.clients:
+        #    mean_rate += client.get_rate()
+        #mean_rate = mean_rate/len(self.clients)
         #dump_string = f"{server_load},{mean_rate*1000}"
 
-        dump_string = ','.join([str(self.get_client(i+2).speed()) for i in range(len(self.clients))]) + f",{self.real_server_load}"
+        dump_string = ','.join([str(self.get_client(i+2).now_speed) for i in range(len(self.clients))]) + f",{self.real_server_load}"
         # print(dump_string + f"|| {self.get_client(2).get_rate()},{self.get_client(3).get_rate()},{self.get_client(4).get_rate()}")
         f.write(dump_string + "\n")
         f.close()

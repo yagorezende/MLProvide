@@ -11,6 +11,7 @@ import functools
 import json
 
 
+
 class Agent(object):
     def __init__(self, client, dc, _range=settings.ACTIONS, max_percent=8, states=settings.STATES, q_table_index=settings.Q_TABLE_INDEX):
         """ Agente """

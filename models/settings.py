@@ -1,13 +1,20 @@
 from .fls import FLSAction
+import socket
 
 CLIENT1_BW = 15000        # bps
 CLIENT2_BW = 25000        # bps
 CLIENT3_BW = 30000        # bps
 MAX_SERVER_LOAD = 70000   # bps
-STEP = 2                   # seconds
+STEP = 1                   # seconds
 
 # Agent settings
-SERVER_IP = '172.16.100.18'
+
+if socket.gethostname() == 'EX-MACHINA':
+    SERVER_IP = '172.16.100.18'
+    RYU_IP = '127.0.0.1'
+else:
+    SERVER_IP = '172.17.10.102'
+    RYU_IP = '172.17.10.102'
 ALPHA = 0.3
 LOCK_MODE = True
 LOCK_ALPHA = 0.1
@@ -20,7 +27,7 @@ MAIN_FILE = "general_client_fql.txt"
 STATE_FILE = "results-states_fql/states"
 LOG_LEVEL = "INFO"
 PARALLEL = True
-LOOP = 100
+LOOP = 20
 
 # POMDP Settings
 POMDP = False               # Medir o tráfego da nuvem com processamento

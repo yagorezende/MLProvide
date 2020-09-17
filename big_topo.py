@@ -11,7 +11,12 @@ from mininet.clean import cleanup
 from time import sleep
 import argparse, traceback
 
-HOSTS = 4
+import socket
+if socket.gethostname() == 'maxinet-server':
+    SERVER_IP = '172.16.100.9'
+else:
+    SERVER_IP = '172.17.10.102'
+
 
 class Project(Topo):
     def __init__(self):
@@ -73,7 +78,7 @@ if __name__ == '__main__':
     parser.add_argument("-m", "--manual", help="manual mininet", action="store_true")
     args = parser.parse_args()
 
-    ryu = RemoteController('ame', ip='172.16.100.9', port=6633)
+    ryu = RemoteController('ame', ip=SERVER_IP, port=6633)
 
     try:
         all_set = False
