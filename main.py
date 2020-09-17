@@ -98,8 +98,8 @@ if __name__ == "__main__":
         fuzzy_times = [2, 5]
         while 1:
             repeat_count += 1
-            cp(f'{settings.STATE_FILE}{settings.STATES}.txt',
-               f'{settings.STATE_FILE}{settings.STATES}-{repeat_count}.txt')
+            #cp(f'{settings.STATE_FILE}{settings.STATES}.txt',
+            #   f'{settings.STATE_FILE}{settings.STATES}-{repeat_count}.txt')
             print(settings.STATES, "ANTES")
             if repeat_count > repeat:
                 repeat_count = 0
