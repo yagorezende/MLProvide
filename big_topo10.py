@@ -139,13 +139,16 @@ if __name__ == '__main__':
 
         if not args.manual:
             start_server(server)
-            for i in range(1, HOSTS):
-                start_client(
-                    net.getNodeByName(
-                        'h' + str(i+1)
-                    ),
-                    str(i+1)
-                )
+            for i in range(1, 15):
+                try:
+                    start_client(
+                        net.getNodeByName(
+                            'h' + str(i + 1)
+                        ),
+                        str(i + 1)
+                    )
+                except:
+                    pass
 
 
     except Exception as e:
