@@ -29,6 +29,7 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
     client_count = ryuapi.RyuApi().client_count()
     dc = models.DC(cap=settings.MAX_SERVER_LOAD*client_count)
     clients = list()
+    print("CLIENT COUNT: ", client_count)
 
     for i in range(client_count):
         clients.append(models.Client(i + 2, settings.CLIENT1_BW + i*50, dc, states=states))
