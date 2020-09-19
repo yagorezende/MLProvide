@@ -14,7 +14,7 @@ class RyuApi:
             url=route,
             data={},
         )
-        return response.json()[-1] - 1
+        return len(response.json()) - 1
 
     def change_meter(self, dpid=1, meter_id=1, rate=300, a_type="DROP", flag="KBPS", bsize=10):
         if int(rate) > 0:

@@ -65,7 +65,11 @@ if __name__ == '__main__':
     cluster = maxinet.Cluster()
     print "Done Cluster"
 
-    exp = maxinet.Experiment(cluster, DC(), switch=UserSwitch)
+    exp = maxinet.Experiment(
+        cluster,
+        DC(),
+        switch=UserSwitch
+    )
     exp.setup()
 
     print "set up done"
@@ -73,8 +77,6 @@ if __name__ == '__main__':
     print "waiting 5 seconds for routing algorithms on the controller to converge"
     time.sleep(5)
 
-
-    exp.pingall
     exp.CLI(locals(), globals())
     exp.stop()
 
