@@ -71,7 +71,7 @@ def start_client(client, index):
     print(client.waiting)
 
 #h2 tcpreplay -i h2-eth0 -l 0 --multiplier=100000 /home/reiner/Mestrado/pcaps/client2.pcap
-# py exp.get_node("h2").run_cmd("tcpreplay -i h2-eth0 -l 0 --multiplier=100000 /home/reiner/Mestrado/pcaps/client2.pcap")
+# py exp.get_node("h2").sendCmd("tcpreplay -i h2-eth0 -l 0 --multiplier=100000 /home/reiner/Mestrado/pcaps/client2.pcap")
 if __name__ == '__main__':
     setLogLevel('info')
 

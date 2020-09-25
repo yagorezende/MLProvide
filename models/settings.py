@@ -1,10 +1,10 @@
 from .fls import FLSAction
 import socket
 
-CLIENT1_BW = 15000        # bps
-CLIENT2_BW = 25000        # bps
-CLIENT3_BW = 30000        # bps
-MAX_SERVER_LOAD = 70000   # bps
+CLIENT1_BW = 300000        # bps
+CLIENT2_BW = 400000        # bps
+CLIENT3_BW = 500000        # bps
+MAX_SERVER_LOAD = 1500000   # bps
 STEP = 1                   # seconds
 
 # Agent settings
@@ -27,7 +27,7 @@ MAIN_FILE = "general_client_fql.txt"
 STATE_FILE = "results-states_fql/states"
 LOG_LEVEL = "INFO"
 PARALLEL = True
-LOOP = 20
+LOOP = 200
 
 # POMDP Settings
 POMDP = False               # Medir o tráfego da nuvem com processamento
@@ -58,12 +58,13 @@ Q_INDEXES = dict(
     },
 )
 
-STRATEGY = 'fuzzy_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
+STRATEGY = 'fsl_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'eep'  # eep, softmax
 TEMPERATURE = 1
 #Q_TABLE_INDEX = Q_INDEXES[STRATEGY][TRAFFIC][EXPLORATION]
-Q_TABLE_INDEX = False
+Q_TABLE_INDEX = 1
+Q_TABLE_UPDATE_EVERYSTEP = True
 
 
 

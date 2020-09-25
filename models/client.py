@@ -24,6 +24,7 @@ class Client:
         self.enabled = True
         self.old_time = time.time()
         self.now_speed = 0
+        self.error = False
 
     def __str__(self):
         return f"CLIENT:{self.id}"
@@ -36,7 +37,7 @@ class Client:
         # install meter
         #self.rapi.add_meter(self.dpid, self.id, int(self.bw / 1000))
 
-        rate = 500000
+        rate = self.bw/1000
         self.rapi.add_meter(self.dpid, self.id, rate)
 
         #self.set_rate(2*self.bw/1000)

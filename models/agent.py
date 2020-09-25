@@ -44,7 +44,7 @@ class Agent(object):
         self.reset_q_table()
 
         if q_table_index and settings.STRATEGY not in ['fuzzy_step']:
-            self.q_table = self.fetch_q_table(index=q_table_index)
+            self.q_table = self.fetch_q_table(index=q_table_index, space=space)
         else:
             self.q_table = np.random.rand(space, self.ACTION_SPACE)  # Creating the Q-table
 
@@ -81,8 +81,8 @@ class Agent(object):
         file.close()
 
     def dump_q_table(self, index):
-        if not settings.Q_TABLE_INDEX:
-            file = open(f'results-qtables/client{self.client.id}_q_table-{settings.STRATEGY}-{settings.EXPLORATION}-{index}', 'a+')
+        if not settings.Q_TABLE_INDEX or settings.Q_TABLE_UPDATE_EVERYSTEP:
+            file = open(f'results-qtables/client{self.client.id}_q_table-{settings.STRATEGY}-{settings.EXPLORATION}-acc', 'w+')
             #st = '\n'.join(['    '.join(['{:4}'.format(item) for item in row]) for row in self.q_table])
 
             try:
@@ -91,13 +91,15 @@ class Agent(object):
                 pass
             file.close()
 
-    def fetch_q_table(self, index):
+    def fetch_q_table(self, index, space=1):
         exploration = ""
         if settings.EXPLORATION == "softmax":
             exploration = "-softmax"
-
-        file = open(
-            f'results-qtables/client{self.client.id}_q_table-{settings.STRATEGY}{exploration}-{index}', 'r')
+        try:
+            file = open(
+                f'results-qtables/client{self.client.id}_q_table-{settings.STRATEGY}{exploration}-acc', 'r')
+        except:
+            return  np.random.rand(space, self.ACTION_SPACE)
         content = file.read()
         file.close()
         qtable = json.loads(content.splitlines()[0])

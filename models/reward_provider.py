@@ -143,6 +143,7 @@ class RewardProvider:
                 try:
                     client.step(rp)
                 except:
+                    client.error = True
                     print("ERROR in CLient ", client)
             else:
                 break
