@@ -1,10 +1,10 @@
 from .fls import FLSAction
 import socket
 
-CLIENT1_BW = 300000        # bps
-CLIENT2_BW = 400000        # bps
-CLIENT3_BW = 500000        # bps
-MAX_SERVER_LOAD = 1500000   # bps
+CLIENT1_BW = 6000000        # bps
+CLIENT2_BW = 4000000000        # bps
+CLIENT3_BW = 5000000000        # bps
+MAX_SERVER_LOAD = 70000000   # bps
 STEP = 1                   # seconds
 
 # Agent settings
@@ -58,7 +58,7 @@ Q_INDEXES = dict(
     },
 )
 
-STRATEGY = 'fsl_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
+STRATEGY = 'fql_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'eep'  # eep, softmax
 TEMPERATURE = 1

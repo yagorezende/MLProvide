@@ -5,11 +5,12 @@ import traceback
 import time
 import numpy as np
 import os, paramiko, json
-import sys
+import sys, traceback
 
-
-SSH_USERNAME = input('Username: ')
-SSH_PASSWD = input('Password: ')
+SSH_STATUS = input('monitor: ')
+if SSH_STATUS == 'y':
+    SSH_USERNAME = input('Username: ')
+    SSH_PASSWD = input('Password: ')
 
 def clear_and_reset(old_file="", new_file=''):
     r = open(old_file, 'r')
@@ -26,15 +27,16 @@ def clear_and_reset(old_file="", new_file=''):
 
 
 def write_ryu_status(status=True):
-    ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect('labgen.lid.uff.br', username=SSH_USERNAME, password=SSH_PASSWD)
-    conn = ssh
-    ftp = conn.open_sftp()
-    file = ftp.file('/var/www/html/ryu/status.txt', "w", -1)
-    file.write(json.dumps(dict(status=status)))
-    file.flush()
-    ftp.close()
+    if SSH_STATUS:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect('labgen.lid.uff.br', username=SSH_USERNAME, password=SSH_PASSWD)
+        conn = ssh
+        ftp = conn.open_sftp()
+        file = ftp.file('/var/www/html/ryu/status.txt', "w", -1)
+        file.write(json.dumps(dict(status=status)))
+        file.flush()
+        ftp.close()
 
 
 def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
@@ -57,7 +59,7 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
 
 
     for i in range(client_count):
-        clients.append(models.Client(i + 2, 300000 + i*100000, dc, states=states))
+        clients.append(models.Client(i + 2, settings.CLIENT1_BW + i*1000000, dc, states=states))
 
 
 
@@ -69,6 +71,7 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
         rp.enabled = True
         if settings.PARALLEL:
             rp.parallel_start()
+        print("START REWARD PROVIDER")
         while 1:
             print("T =", t, " ------------------------------------------------------------------")
             if settings.INTERCALATE:
@@ -83,16 +86,22 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
             ERROR = False
 
             # print("CPU=", np.mean(cpus))
+            print("STEP", step)
             time.sleep(step)
+            print("PASSOU DO SLEEP")
             try:
                 rp.step()
             except:
                 ERROR = True
+                print("DEU ERRO NO STEP")
+                traceback.print_exc()
+            print("PASSOU DO STEP")
             t += 1
             errors = 0
             for client in rp.clients:
                 if client.error:
                     errors += 1
+            print("PASSOU DA VER DE ERRO")
             print(errors, len(rp.clients))
             if t > max_t or errors == len(rp.clients) or ERROR:
                 for c in rp.clients:
@@ -129,7 +138,7 @@ def cp(filename, new_filename):
 
 
 if __name__ == "__main__":
-    if input("The current data will be destroyed, is this ok?") == "y":
+    if 1:
         write_ryu_status(status=True)
         repeat = 2
         repeat_count = settings.REPEAT_COUNT
@@ -149,7 +158,7 @@ if __name__ == "__main__":
             if settings.Q_TABLE_INDEX:
                 trained = "-trained"
             filenames = [
-                f'results-dataset_{settings.STRATEGY.split("_")[0]}/{settings.STRATEGY.split("_")[0]}-comparet-{sm}{trained}',
+                f'results-dataset_{settings.STRATEGY.split("_")[0]}/{settings.STRATEGY.split("_")[0]}-compare-aw-{sm}{trained}',
             ]
 
 
@@ -188,7 +197,7 @@ if __name__ == "__main__":
                         print("REPETITION", count)
                         print(count, "TAKE ########################################################################")
                         main(settings.LOOP, now_file, index=count)
-                        alert.notice()
-                    alert.scream()
+                        #alert.notice()
+                    #alert.scream()
                     exit()
     write_ryu_status(status=False)

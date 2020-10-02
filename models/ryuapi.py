@@ -27,8 +27,8 @@ class RyuApi:
                     bands=[
                         dict(
                             type=a_type,
-                            rate=rate,
-                            burst_size=bsize,
+                            rate=int(rate),
+                            burst_size=int(bsize),
                         )
                     ]
                 ))
@@ -63,16 +63,17 @@ class RyuApi:
                     bands=[
                         dict(
                             type="DROP",
-                            rate=rate,
+                            rate=int(rate),
                             burst_size=int(rate*1.2)
                         )
                     ]
                 ))
             )
+            print("ADDED METER")
             print(response.text)
             return response.text
         except Exception as e:
-            print(e)
+            print("ERROR ADDING METER", e)
 
 
     def add_flow(self, dpid, meter_id=1, host = '3'):
@@ -107,10 +108,11 @@ class RyuApi:
     def get_port_stats(self, dpid=1, port_no=1):
         route = f"/stats/port/{dpid}"
         response = requests.get(self.URL + route)
+        print(response.status_code)
         sw = response.json()[str(dpid)]
         for i in sw:
             if i.get('port_no') == int(port_no) and port_no == 1:
-                return i.get('rx_bytes')
+                return i.get('tx_bytes')
             elif i.get('port_no') == int(port_no):
                 return i.get('rx_bytes')
         return 0

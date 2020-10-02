@@ -56,8 +56,11 @@ class RewardProvider:
 
     def check_nbw(self):
         speeds = 0
+        print("CLIENTS:", self.clients)
         for client in self.clients:
+            print("begin client")
             speed = client.speed()
+            print("speed")
             client.set_nbw(speed)
             speeds += speed
             #print(speed, client.nbw)
@@ -70,6 +73,7 @@ class RewardProvider:
             else:
                 self.dc.load = pomdp_mapper.mirror(float(psutil.cpu_percent()))
         self.real_server_load = speeds
+        print("Done check nbw")
 
     def get_client(self, id):
         for c in self.clients:
@@ -137,15 +141,21 @@ class RewardProvider:
     def start(rp, client):
         while 1:
             if not rp.enabled:
+                #print("SERVER NOT ENABLED")
                 break
             time.sleep(1)
+            #print("CLIENTE INDO")
             if client.enabled:
                 try:
+                    #print("CLIENTE DENTRO DO IF")
                     client.step(rp)
-                except:
+                    #print("Cliente passou do step")
+                except Exception as e:
                     client.error = True
-                    print("ERROR in CLient ", client)
+                    #print("ERROR in CLient ", client)
+                    #print(e)
             else:
+                #print("O CLIENTE TA DESABILITADO")
                 break
 
 

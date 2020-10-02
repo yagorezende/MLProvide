@@ -52,10 +52,11 @@ class Client:
         self.rapi.change_meter(self.dpid, self.id, rate)
 
     def port_stats(self):
-        return self.rapi.get_port_stats(1, port_no=self.id)
+        return self.rapi.get_port_stats(self.id, port_no=1)
 
     def speed(self):
         new_time = time.time()
+        print("getting speed")
         new_value = self.port_stats()
         speed = (new_value - self.old_bytes) / (new_time - self.old_time)
         self.now_speed = speed * 8
