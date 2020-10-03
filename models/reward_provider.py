@@ -4,6 +4,7 @@ import time
 from . import settings, pomdp_mapper
 import psutil
 from threading import Thread
+import traceback
 
 
 class RewardProvider:
@@ -152,6 +153,7 @@ class RewardProvider:
                     #print("Cliente passou do step")
                 except Exception as e:
                     client.error = True
+                    traceback.print_exc()
                     #print("ERROR in CLient ", client)
                     #print(e)
             else:
