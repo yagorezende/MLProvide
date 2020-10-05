@@ -170,7 +170,6 @@ if __name__ == "__main__":
                     settings.INTERCALATE = True
                 if settings.FUZZY:
                     for t in fuzzy_times:
-
                         for count in range(0, 20):
                             now_file = f'{filename}-{t}-{count}.txt'
                             if os.path.isfile(now_file):
@@ -184,6 +183,22 @@ if __name__ == "__main__":
                                   "TAKE ########################################################################")
                             main(settings.LOOP, now_file, step=t)
                         exit()
+
+                elif settings.TEST_STATES_RANGE:
+                    for count in range(0, 5):
+                        for s in settings.TEST_STATES_RANGE:
+                            now_file = f'{filename}{count}-s-{repeat_count}--teststates.txt'
+                            print(now_file)
+                            if os.path.isfile(now_file):
+                                file = open(now_file, "r")
+                                content = file.read()
+                                file.close()
+                                if len(content.splitlines()) > 99:
+                                    continue
+                            print("REPETITION", count)
+                            print(count, "TAKE ########################################################################")
+                            main(settings.LOOP, now_file, index=count, states=s)
+
                 else:
                     for count in range(0, 20):
                         now_file = f'{filename}{count}-{settings.STATES}-{repeat_count}.txt'
@@ -200,4 +215,4 @@ if __name__ == "__main__":
                         #alert.notice()
                     #alert.scream()
                     exit()
-    write_ryu_status(status=False)
+    #write_ryu_status(status=False)

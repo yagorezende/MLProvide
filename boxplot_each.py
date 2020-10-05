@@ -13,7 +13,7 @@ import math
 class BoxPlot(object):
     def __init__(self, client_num=3, repetitions=20, even_adjust=5, verbose=True, tenant="Tenant",
                  thb="THB", ylim=120,
-                 ylabel="'Bandwidth Usage [Kb/s]'", cloudload_label="Max Cloud Load"):
+                 ylabel="'Bandwidth Usage [Kb/s]'", cloudload_label="Max Cloud Load", get_server=False, get_client=True):
         self.client_num = client_num
         self.repetitions = repetitions
         self.all_data = {}
@@ -26,6 +26,8 @@ class BoxPlot(object):
         self.ylim = ylim
         self.ylabel = ylabel
         self.thb = thb
+        self.get_server = get_server
+        self.get_client = get_client
         self.cloudload_label = cloudload_label
 
     def mean_adequacy(self, measured, expected):
@@ -36,8 +38,10 @@ class BoxPlot(object):
         ret = []
         d = self.all_data
         for label in self.all_data:
-            ret.append(self.all_data[label]['client'])
-            ret.append(self.all_data[label]['server'])
+            if self.get_client:
+                ret.append(self.all_data[label]['client'])
+            if self.get_server:
+                ret.append(self.all_data[label]['server'])
         return ret
 
     def print(self, *args, **kwargs):
@@ -115,8 +119,10 @@ class BoxPlot(object):
             print(c)
 
         for label in self.all_data:
-            labels.append(label + "\nTenants")
-            labels.append(label + "\nServer")
+            if self.get_client:
+                labels.append(label)
+            if self.get_server:
+                labels.append(label)
 
         bplot = axes.boxplot(all_data,
                              vert=True,  # vertical box alignment
@@ -136,8 +142,12 @@ class BoxPlot(object):
         h = 0
         #for label in self.all_data:
 
-        plt.bar([0], [0], 0, label="Tenants", color=colors[0], edgecolor='black', hatch=hatches[h])
-        plt.bar([0], [0], 0, label="Server", color=colors[0], edgecolor='black', hatch=hatches[1])
+        if self.get_client:
+            pass
+            #plt.bar([0], [0], 0, label="Tenants", color=colors[0], edgecolor='black', hatch=hatches[h])
+        if self.get_server:
+            pass
+            #plt.bar([0], [0], 0, label="Server", color=colors[0], edgecolor='black', hatch=hatches[1])
 
         h += 1
 
@@ -169,24 +179,44 @@ if __name__ == "__main__":
     bp = BoxPlot(
         ylabel='Fitness [%]',
         ylim=2000,
-        cloudload_label='Threshold',
+        cloudload_label='Cloud Threshold',
         tenant='Inquilino',
         thb='Banda Contratada',
+        get_server=True,
+        get_client=False,
     )
 
     sm = "-aw--trained" # sm, -VT,
 
     #sm = ""
     bp.add_data_collection(
+        label="FSL",
+        file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
+        # includes=(10, 9, 8, 7, 3, 2,),
+    )
+
+    bp.add_data_collection(
+        label="FQL",
+        file=f"results-dataset_fql/fql-compare{sm}#-5-1.txt",
+        # includes=(10, 9, 8, 7, 3, 2,),
+    )
+    bp.add_data_collection(
         label="FIS",
         file=f"results-dataset_fuzzy/fuzzy-compare{sm}-2-#.txt",
         #excludes=(5,)
     )
+
     bp.add_data_collection(
-        label="FSL",
-        file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
-        #includes=(10, 9, 8, 7, 3, 2,),
+        label="Q-Learning",
+        file=f"results-dataset_q/q-compare{sm}#-5-1.txt",
+        # excludes=(5,)
     )
+    bp.add_data_collection(
+        label="SARSA",
+        file=f"results-dataset_sarsa/sarsa-compare{sm}#-5-1.txt",
+        # excludes=(5,)
+    )
+
     #bp.add_data_collection(
     #    label="FQL",
     #    file=f"results-states_fql/fql-compare{sm}#-5-1.txt",
