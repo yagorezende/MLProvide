@@ -187,7 +187,7 @@ if __name__ == "__main__":
                 elif settings.TEST_STATES_RANGE:
                     for count in range(0, 5):
                         for s in settings.TEST_STATES_RANGE:
-                            now_file = f'{filename}{count}-s-{repeat_count}--teststates.txt'
+                            now_file = f'{filename}{count}-{s}-{repeat_count}--teststates.txt'
                             print(now_file)
                             if os.path.isfile(now_file):
                                 file = open(now_file, "r")
