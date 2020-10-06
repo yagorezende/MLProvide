@@ -195,7 +195,7 @@ class Agent(object):
         increase_by = 0
         if self.actions[action] != 0:
             #percent = ((self.max_percent/100)*(self.dc.cap/1000))
-            percent = 0.2
+            percent = .3
             increase_by = math.ceil(percent*(self.actions[action]/100)*self.client.rate)
         self.state = self.get_current_state()
         #print('doing')
@@ -285,7 +285,6 @@ class Agent(object):
 
 
     def sarsa_step(self, clients):
-
         return self.q_step(clients)
 
     def q_step(self, clients):
