@@ -59,9 +59,9 @@ class RewardProvider:
         speeds = 0
         print("CLIENTS:", self.clients)
         for client in self.clients:
-            print("begin client")
+            #print("begin client")
             speed = client.speed()
-            print("speed")
+            #print("speed")
             client.set_nbw(speed)
             speeds += speed
             #print(speed, client.nbw)
@@ -74,7 +74,7 @@ class RewardProvider:
             else:
                 self.dc.load = pomdp_mapper.mirror(float(psutil.cpu_percent()))
         self.real_server_load = speeds
-        print("Done check nbw")
+        #print("Done check nbw")
 
     def get_client(self, id):
         for c in self.clients:

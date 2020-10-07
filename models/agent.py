@@ -202,6 +202,7 @@ class Agent(object):
         self.client.sum_rate(increase_by)
         self.state = self.get_current_state()
         self.old_state = self.state
+        Mlog.DEBUG("INCREASE BY: ", increase_by)
 
     def do_fuzzy_action(self, value):
         increase_by = int((value/100)*0.3*settings.MAX_SERVER_LOAD/1000)

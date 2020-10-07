@@ -56,7 +56,7 @@ class Client:
 
     def speed(self):
         new_time = time.time()
-        print("getting speed")
+        #print("getting speed")
         new_value = self.port_stats()
         speed = (new_value - self.old_bytes) / (new_time - self.old_time)
         self.now_speed = speed * 8

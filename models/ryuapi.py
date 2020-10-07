@@ -108,7 +108,7 @@ class RyuApi:
     def get_port_stats(self, dpid=1, port_no=1):
         route = f"/stats/port/{dpid}"
         response = requests.get(self.URL + route)
-        print(response.status_code)
+        #print(response.status_code)
         sw = response.json()[str(dpid)]
         for i in sw:
             if i.get('port_no') == int(port_no) and port_no == 1:
