@@ -195,8 +195,10 @@ class Agent(object):
         increase_by = 0
         if self.actions[action] != 0:
             #percent = ((self.max_percent/100)*(self.dc.cap/1000))
-            percent = .3
-            increase_by = math.ceil(percent*(self.actions[action]/100)*self.client.bw)
+            percent = .1
+            #print("client_mpbs", self.client.bw/1000, self.actions[action]/100, .3)
+            #print(percent*self.client.bw/1000, self.actions[action]/100)
+            increase_by = math.ceil(percent*(self.actions[action]/100)*self.client.bw/1000)
         self.state = self.get_current_state()
         #print('doing')
         self.client.sum_rate(increase_by)
