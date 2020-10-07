@@ -196,13 +196,13 @@ class Agent(object):
         if self.actions[action] != 0:
             #percent = ((self.max_percent/100)*(self.dc.cap/1000))
             percent = .3
-            increase_by = math.ceil(percent*(self.actions[action]/100)*self.client.rate)
+            increase_by = math.ceil(percent*(self.actions[action]/100)*self.client.bw)
         self.state = self.get_current_state()
         #print('doing')
         self.client.sum_rate(increase_by)
         self.state = self.get_current_state()
         self.old_state = self.state
-        Mlog.DEBUG("INCREASE BY: ", increase_by)
+        return increase_by
 
     def do_fuzzy_action(self, value):
         increase_by = int((value/100)*0.3*settings.MAX_SERVER_LOAD/1000)
@@ -343,6 +343,13 @@ class Agent(object):
         c_action = self.colored(self.actions[self.old_action])
         dc_load_cap = self.colored(self.dc.load/self.dc.cap)
 
+
+
+        self.old_action = action
+        self.old_state = self.get_current_state()
+        self.dump_data(reward)
+        ac = self.do_action(action)
+        # tomar a ação vetorial
         print(
             f'POMDP={settings.POMDP}, '
             f'DC-LOAD/CAP={dc_load_cap}, '
@@ -352,14 +359,10 @@ class Agent(object):
             f'LOCK-MODE={self.LOCK_MODE}, '
             f'LIMIT={self.client.get_rate()}, '
             f'reward={c_reward}, '
-            f'ACTION={c_action}')
+            f'ACTION={c_action}',
+            f'INCREASE_BY={ac}',
+        )
 
-        self.old_action = action
-        self.old_state = self.get_current_state()
-        self.dump_data(reward)
-
-        # tomar a ação vetorial
-        self.do_action(action)
 
         #self.dump_q_table()
 
