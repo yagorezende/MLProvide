@@ -60,10 +60,10 @@ Q_INDEXES = dict(
 
 STRATEGY = 'sarsa_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
-EXPLORATION = 'eep'  # eep, softmax
+EXPLORATION = 'softmax'  # eep, softmax
 TEMPERATURE = 1
 #Q_TABLE_INDEX = Q_INDEXES[STRATEGY][TRAFFIC][EXPLORATION]
-Q_TABLE_INDEX = 1
+Q_TABLE_INDEX = False
 Q_TABLE_UPDATE_EVERYSTEP = True
 TEST_STATES_RANGE = range(5, 50)
 
