@@ -59,7 +59,7 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
 
 
     for i in range(client_count):
-        clients.append(models.Client(i + 2, settings.CLIENT1_BW + i*1000000, dc, states=states))
+        clients.append(models.Client(i + 2, settings.CLIENT1_BW + i*settings.BW_STEP, dc, states=states))
 
 
 
@@ -86,23 +86,23 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
             ERROR = False
 
             # print("CPU=", np.mean(cpus))
-            print("STEP", step)
+            #print("STEP", step)
             time.sleep(step)
-            print("PASSOU DO SLEEP")
+            #print("PASSOU DO SLEEP")
             try:
                 rp.step()
             except:
                 ERROR = True
                 print("DEU ERRO NO STEP")
                 traceback.print_exc()
-            print("PASSOU DO STEP")
+            #print("PASSOU DO STEP")
             t += 1
             errors = 0
             for client in rp.clients:
                 if client.error:
                     errors += 1
-            print("PASSOU DA VER DE ERRO")
-            print(errors, len(rp.clients))
+            #print("PASSOU DA VER DE ERRO")
+            #print(errors, len(rp.clients))
             if t > max_t or errors == len(rp.clients) or ERROR:
                 for c in rp.clients:
                     c.agent.dump_q_table(index)
@@ -185,8 +185,10 @@ if __name__ == "__main__":
                         exit()
 
                 elif settings.TEST_STATES_RANGE:
-                    for count in range(0, 10):
-                        for s in settings.TEST_STATES_RANGE:
+                    #for count in range(0, 10):
+                    for s in settings.TEST_STATES_RANGE:
+                        for count in range(0, 10):
+                        #for s in settings.TEST_STATES_RANGE:
                             now_file = f'{filename}{count}-{s}-{repeat_count}--teststates.txt'
                             print(now_file)
                             if os.path.isfile(now_file):

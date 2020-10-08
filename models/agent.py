@@ -48,7 +48,8 @@ class Agent(object):
         else:
             self.q_table = np.random.rand(space, self.ACTION_SPACE)  # Creating the Q-table
 
-
+        print("STATES: ", states)
+        print("Q-table-len", len(self.q_table), len(self.q_table[0]))
         self.old_state = -1
 
         "Sistema de inferencia fuzzy"
@@ -76,7 +77,7 @@ class Agent(object):
         self.first = True
 
     def reset_q_table(self):
-        file = open(f'client{self.client.id}_q_table.txt', 'w+')
+        file = open(f'results-qtables/client{self.client.id}_q_table.txt', 'w+')
         file.write('')
         file.close()
 
@@ -139,21 +140,21 @@ class Agent(object):
                 return reward
 
         if self.client.nbw < 0.5*self.client.bw:
-            Mlog.INFO('OLD ACTION', self.client.id, old_action)
+            #Mlog.INFO('OLD ACTION', self.client.id, old_action)
             if old_action >= 0:
                 reward = 0.7#*self.client.nbw/self.client.bw
             else:
-                Mlog.INFO("NEGATIVE REWARD BY CLIENT UNDER SLA")
+                #Mlog.INFO("NEGATIVE REWARD BY CLIENT UNDER SLA")
                 reward = -4#*self.client.nbw/self.client.bw
                 return reward
 
         if self.client.nbw < self.client.bw:
             if old_action >= 0:
-                print()
+                #print()
                 reward = 0.5 #* self.client.nbw / self.client.bw
                 return reward
             else:
-                Mlog.INFO("NEGATIVE REWARD BY CLIENT UNDER SLA 2")
+                #Mlog.INFO("NEGATIVE REWARD BY CLIENT UNDER SLA 2")
                 reward = -2 #* self.client.nbw / self.client.bw
                 return reward
 
@@ -356,13 +357,14 @@ class Agent(object):
             f'POMDP={settings.POMDP}, '
             f'DC-LOAD/CAP={dc_load_cap}, '
             f'CLIENT={self.client.id}, '
+            f'LIMIT={Bcolors.WARNING}{self.client.get_rate()}{Bcolors.ENDC}, '
             f'NOW-BW={self.client.nbw}, '
             f'BW={self.client.bw}, '
             f'LOCK-MODE={self.LOCK_MODE}, '
-            f'LIMIT={self.client.get_rate()}, '
             f'reward={c_reward}, '
             f'ACTION={c_action}',
             f'INCREASE_BY={ac}',
+
         )
 
 

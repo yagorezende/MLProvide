@@ -1,10 +1,12 @@
 from .fls import FLSAction
 import socket
 
-CLIENT1_BW = 6000000        # bps
-CLIENT2_BW = 4000000000        # bps
-CLIENT3_BW = 5000000000        # bps
-MAX_SERVER_LOAD = 70000000   # bps
+CLIENT1_BW = 1*1000000        # bps
+#CLIENT2_BW = 4000000000        # bps
+
+#CLIENT3_BW = 5000000000        # bps
+BW_STEP = .2 * 1000000
+MAX_SERVER_LOAD = 47*1000000   # bps
 STEP = 1                   # seconds
 
 # Agent settings
@@ -27,7 +29,7 @@ MAIN_FILE = "general_client_fql.txt"
 STATE_FILE = "results-states_fql/states"
 LOG_LEVEL = "INFO"
 PARALLEL = True
-LOOP = 200
+LOOP = 50
 
 # POMDP Settings
 POMDP = False               # Medir o tráfego da nuvem com processamento
@@ -65,7 +67,7 @@ TEMPERATURE = 1
 #Q_TABLE_INDEX = Q_INDEXES[STRATEGY][TRAFFIC][EXPLORATION]
 Q_TABLE_INDEX = False
 Q_TABLE_UPDATE_EVERYSTEP = True
-TEST_STATES_RANGE = range(5, 50)
+TEST_STATES_RANGE = range(15, 50)
 
 
 

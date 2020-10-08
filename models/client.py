@@ -60,17 +60,17 @@ class Client:
         new_value = self.port_stats()
         speed = (new_value - self.old_bytes) / (new_time - self.old_time)
         self.now_speed = speed * 8
-        print(
-            "PORT STATS",
-            self.id,
-            new_value,
-            self.old_bytes ,
-            #(new_value - self.old_bytes),
-            #new_time - self.old_time,
-            #speed,
-            #speed * 8,
-            self.now_speed
-        )
+        #print(
+        #    "PORT STATS",
+        #    self.id,
+        #    new_value,
+        #    self.old_bytes ,
+        #    #(new_value - self.old_bytes),
+        #    #new_time - self.old_time,
+        #    #speed,
+        #    #speed * 8,
+        #    self.now_speed
+        #)
         self.old_time = new_time
         self.old_bytes = new_value
 
@@ -125,7 +125,7 @@ class Client:
         self.rate = rate
         if math.isnan(rate):
             exit()
-        print(f"CLIENT {self.id}:" + Bcolors.WARNING + f"{rate}" + Bcolors.ENDC)
+        #print(f"CLIENT {self.id}:" + Bcolors.WARNING + f"{rate}" + Bcolors.ENDC)
         getattr(self.agent, settings.STRATEGY)(clients)
 
 

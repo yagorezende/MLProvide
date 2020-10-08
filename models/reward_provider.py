@@ -57,7 +57,7 @@ class RewardProvider:
 
     def check_nbw(self):
         speeds = 0
-        print("CLIENTS:", self.clients)
+        #print("CLIENTS:", self.clients)
         for client in self.clients:
             #print("begin client")
             speed = client.speed()
