@@ -13,7 +13,7 @@ from pprint import pprint
 filename = "results-dataset_sarsa/sarsa-compare-aw--sm<REPETITION>-<STATES>-1--teststates.txt"
 x, y = [], []
 clients = {}
-for i in range(5, 50):
+for i in settings.TEST_STATES_RANGE:
     x.append(i+1)
     total = []
     for j in range(10):

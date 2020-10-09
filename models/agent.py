@@ -30,7 +30,7 @@ class Agent(object):
 
         "Ambiente"
         self.ACTION_SPACE = len(self.action_map(_range=_range))
-        self.OBSERVATION_SPACE = settings.STATES  # Increase or decrease
+        self.OBSERVATION_SPACE = states  # Increase or decrease
         self.old_dc_load = 0
 
         "Modelagem das recompensas"
@@ -47,7 +47,9 @@ class Agent(object):
             self.q_table = self.fetch_q_table(index=q_table_index, space=space)
         else:
             self.q_table = np.random.rand(space, self.ACTION_SPACE)  # Creating the Q-table
-
+            #if settings.STRATEGY.split("_")[0] in ("q", "sarsa"):
+            #    for line in self.q_table:
+            #        line[-2] = 50
         print("STATES: ", states)
         print("Q-table-len", len(self.q_table), len(self.q_table[0]))
         self.old_state = -1

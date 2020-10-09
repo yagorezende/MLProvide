@@ -37,7 +37,7 @@ class Client:
         # install meter
         #self.rapi.add_meter(self.dpid, self.id, int(self.bw / 1000))
 
-        rate = self.bw/1000
+        rate = (self.bw*1.5)/1000
         self.rapi.add_meter(self.dpid, self.id, rate)
 
         #self.set_rate(2*self.bw/1000)
