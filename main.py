@@ -187,7 +187,7 @@ if __name__ == "__main__":
                 elif settings.TEST_STATES_RANGE:
                     #for count in range(0, 10):
                     for s in settings.TEST_STATES_RANGE:
-                        for count in range(0, 1):
+                        for count in range(0, 10):
                         #for s in settings.TEST_STATES_RANGE:
                             now_file = f'{filename}{count}-{s}-{repeat_count}--teststates.txt'
                             print(now_file)
