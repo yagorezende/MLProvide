@@ -172,7 +172,7 @@ class Agent(object):
 
     def dump_state(self, state):
         #print('QTDD ', self.OBSERVATION_SPACE)
-        file = open(f'{settings.STATE_FILE}-{settings.STATES}.txt', 'a+')
+        file = open(f'{settings.STATE_FILE}-{self.OBSERVATION_SPACE}.txt', 'a+')
         file.write(f'{self.client.id}:{state}:{self.OBSERVATION_SPACE}\n')
         file.close()
         return state
