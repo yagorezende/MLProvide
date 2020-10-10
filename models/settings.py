@@ -26,7 +26,7 @@ REPEAT_COUNT = 0
 STATES = 5                 # Estados USADOS 5
 ACTIONS = 2
 MAIN_FILE = "general_client_fql.txt"
-STATE_FILE = "results-states_fql/states"
+
 LOG_LEVEL = "INFO"
 PARALLEL = True
 LOOP = 200
@@ -64,6 +64,7 @@ STRATEGY = 'sarsa_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'softmax'  # eep, softmax
 TEMPERATURE = 1
+STATE_FILE = f"results-states/states-{STRATEGY}"
 #Q_TABLE_INDEX = Q_INDEXES[STRATEGY][TRAFFIC][EXPLORATION]
 Q_TABLE_INDEX = False
 Q_TABLE_UPDATE_EVERYSTEP = True
