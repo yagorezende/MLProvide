@@ -361,12 +361,12 @@ class Agent(object):
             f'CLIENT={self.client.id}, '
             f'LIMIT={Bcolors.WARNING}{self.client.get_rate()}{Bcolors.ENDC}, '
             f'NOW-BW={self.client.nbw}, '
+            f'STATE={self.old_state}, '
             f'BW={self.client.bw}, '
             f'LOCK-MODE={self.LOCK_MODE}, '
             f'reward={c_reward}, '
             f'ACTION={c_action}',
             f'INCREASE_BY={ac}',
-
         )
 
 

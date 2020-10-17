@@ -189,17 +189,17 @@ if __name__ == "__main__":
     sm = "-aw--trained" # sm, -VT,
 
     #sm = ""
-    bp.add_data_collection(
-        label="FSL",
-        file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
-        # includes=(10, 9, 8, 7, 3, 2,),
-    )
-
-    bp.add_data_collection(
-        label="FQL",
-        file=f"results-dataset_fql/fql-compare{sm}#-5-1.txt",
-        # includes=(10, 9, 8, 7, 3, 2,),
-    )
+    #bp.add_data_collection(
+    #    label="FSL",
+    #    file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
+    #    # includes=(10, 9, 8, 7, 3, 2,),
+    #)
+#
+    #bp.add_data_collection(
+    #    label="FQL",
+    #    file=f"results-dataset_fql/fql-compare{sm}#-5-1.txt",
+    #    # includes=(10, 9, 8, 7, 3, 2,),
+    #)
     bp.add_data_collection(
         label="FIS",
         file=f"results-dataset_fuzzy/fuzzy-compare{sm}-2-#.txt",
@@ -211,11 +211,11 @@ if __name__ == "__main__":
         file=f"results-dataset_q/q-compare{sm}#-5-1.txt",
         # excludes=(5,)
     )
-    bp.add_data_collection(
-        label="SARSA",
-        file=f"results-dataset_sarsa/sarsa-compare{sm}#-5-1.txt",
-        # excludes=(5,)
-    )
+    #bp.add_data_collection(
+    #    label="SARSA",
+    #    file=f"results-dataset_sarsa/sarsa-compare{sm}#-5-1.txt",
+    #    # excludes=(5,)
+    #)
 
     #bp.add_data_collection(
     #    label="FQL",
@@ -236,7 +236,7 @@ if __name__ == "__main__":
 
 
     bp.plot()
-    bp.savefig(f"pdf/boxplot-dataset-{sm}.pdf")
+    bp.savefig(f"pdf/boxplot-dataseta-{sm}.pdf")
 
 
 

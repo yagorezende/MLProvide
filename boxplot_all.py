@@ -187,38 +187,46 @@ class BoxPlot(object):
 
 if __name__ == "__main__":
 
-    bp = BoxPlot(
-        ylabel='Vazão [Kb/s]',
-        ylim=2000,
-        cloudload_label='Limite Superior de Tráfego',
-        tenant='Inquilino',
-        thb='Banda Contratada',
-    )
+    #bp = BoxPlot(
+    #    ylabel='Vazão [Kb/s]',
+    #    ylim=2000,
+    #    cloudload_label='Limite Superior de Tráfego',
+    #    tenant='Inquilino',
+    #    thb='Banda Contratada',
+    #)
 
-    sm = "--trained" # sm, -VT,
+    bp = BoxPlot(
+       ylabel='Bandwidth Usage [Kb/s]',
+       ylim=2000,
+       cloudload_label='Max cloud load',
+       tenant='Tenant',
+       thb='Tenant Hired Bandwidth',
+    )
+    #sm = ""
+    sm = "-aw--trained" # sm, -VT,
 
     #sm = ""
     bp.add_data_collection(
         label="FIS",
-        file=f"results-dataset_fuzzy/fuzzy-compare--2-#.txt",
+        file=f"results-dataset_fuzzy/fuzzy-compare{sm}-2-#.txt",
         #excludes=(5,)
     )
-    bp.add_data_collection(
-        label="FSL",
-        file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
-        #includes=(10, 9, 8, 7, 3, 2,),
-    )
+    #bp.add_data_collection(
+    #    label="FSL",
+    #    file=f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt",
+    #    #includes=(10, 9, 8, 7, 3, 2,),
+    #)
     #bp.add_data_collection(
     #    label="FQL",
     #    file=f"results-states_fql/fql-compare{sm}#-5-1.txt",
     #    #excludes=(,),
     #)
-    #bp.add_data_collection(
-    #    label="Q-Learning",
-    #    file=f"results-states_q/q-compare{sm}#-5-1.txt",
-    #    #includes=(1,)
-    #    excludes=(5,),
-    #)
+    bp.add_data_collection(
+        label="Q-Learning",
+        file=f"results-states_q/q-compare{sm}#-5-1.txt",
+        #includes=(1,)
+        #excludes=(5,),
+    )
     #bp.add_data_collection(
     #    label="SARSA",
     #    file=f"results-states_sarsa/sarsa-compare{sm}#-5-1.txt",
@@ -227,7 +235,7 @@ if __name__ == "__main__":
 
 
     bp.plot()
-    bp.savefig(f"pdf/boxplot{sm}.pdf")
+    bp.savefig(f"pdf/boxplot-corr.pdf")
 
 
 
