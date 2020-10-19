@@ -227,12 +227,13 @@ class Agent(object):
         return self.actions.index(chosen)
 
     def dump_data(self, *args):
-        f = open(self.file, "a+")
+        #af = open(self.file, "a+")
         ex = ",".join([str(i) for i in args])
         data = f"{self.client.id},{self.dc.load},{self.client.get_rate()*1000},{ex}"
         #print(data)
-        f.write(data + "\n")
-        f.close()
+        #f.write(data + "\n")
+        #f.close()a
+        pass
 
     def choose_action(self):
         """Toma decisão embasada no que foi aprendido (Escolhe da Q-table)"""
@@ -367,6 +368,8 @@ class Agent(object):
             f'reward={c_reward}, '
             f'ACTION={c_action}',
             f'INCREASE_BY={ac}',
+            f'LOAD={int(self.dc.load)}',
+            f'CAP={int(self.dc.cap)}'
         )
 
 

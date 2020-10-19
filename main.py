@@ -52,7 +52,7 @@ def main(max_t, filename, states=settings.STATES, step=settings.STEP, index=1):
         write_ryu_status(False)
         sys.exit()
         exit()
-    dc = models.DC(cap=settings.MAX_SERVER_LOAD*client_count)
+    dc = models.DC(cap=settings.MAX_SERVER_LOAD)
     clients = list()
     print("CLIENT COUNT: ", client_count)
 
