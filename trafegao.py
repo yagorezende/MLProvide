@@ -1,17 +1,26 @@
+
+#!usr
 import argparse
 import os
+import ifcfg
+from time import sleep
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("index", help="display a square of a given number",
-                        type=int)
+    parser.add_argument("--inout", action='store_true')
     args = parser.parse_args()
+    index = ""
+    for i in list(ifcfg.interfaces().items()):
+        if str(i[0]).count("-eth0") and str(i[0])[0] == 'h':
+            index = str(i[0]).replace("-eth0", "").replace("h", "")
 
-    cmd = f"tcpreplay -i h{args.index}-eth0 -l 0 --multiplier=100000 /home/reiner/Mestrado/pcaps/client{args.index}.pcap"
-
+    if args.inout:
+        while 1:
+            cmd = f"tcpreplay -i h{index}-eth0 -l 40000 --mbps=100 /home/reiner/Mestrado/pcaps/client{index}.pcap"
+            print(cmd)
+            os.system(cmd)
+            sleep(15)
+    cmd = f"tcpreplay -i h{index}-eth0 -l 0 --mbps=100 /home/reiner/Mestrado/pcaps/client{index}.pcap"
     print(cmd)
     os.system(cmd)
-
-
-

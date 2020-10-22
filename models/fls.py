@@ -90,7 +90,7 @@ class FLSAction:
             ctrl.Rule(serverload['Lower'] & client_load['Threshold']   & others_below['Not Exist'], bw["Increase"]),
             ctrl.Rule(serverload['Lower'] & client_load['Threshold']   & others_below['Exist']    , bw["Light Adjust"]),
             ctrl.Rule(serverload['Lower'] & client_load['Higher']      & others_below['Not Exist'], bw["Increase"]),
-            ctrl.Rule(serverload['Lower'] & client_load['Higher']      & others_below['Exist']    , bw["Decrease"]),
+            ctrl.Rule(serverload['Lower'] & client_load['Higher']      & others_below['Exist']    , bw["High Decrease"]),
             ctrl.Rule(serverload['Lower'] & client_load['Very Higher'] & others_below['Not Exist'], bw["Light Adjust"]),
             ctrl.Rule(serverload['Lower'] & client_load['Very Higher'] & others_below['Exist']    , bw["High Decrease"]),
         ]

@@ -10,6 +10,7 @@ from mininet.topo import Topo
 from mininet.clean import cleanup
 from time import sleep
 import argparse, traceback
+from threading import Thread
 
 import socket
 if socket.gethostname() == 'maxinet-server':
@@ -95,13 +96,17 @@ def start_server(server):
 def start_client(client, index):
     #client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --multiplier=100000 pcaps/client%s.pcap' % (index, index))
 
-    while int(index) == 3:
-        client.sendCmd('tcpreplay -i h%s-eth0 -l 40000 --mbps=100 pcaps/client%s.pcap' % (index, index))
-        print(client.waiting)
-        sleep(30)
-
-    client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --mbps=100 pcaps/client%s.pcap' % (index, index))
-    #client.sendCmd('python3 iperf_infinite.py -u -b 100m')
+    if  int(index) in [3, 5,]:
+        #print("client", index, "begin")
+        #client.sendCmd('tcpreplay -i h%s-eth0 -l 200000 --mbps=100 pcaps/client%s.pcap' % (index, index))
+        client.sendCmd('python3 trafegao.py --inout')
+        #print(client.waiting)
+        #print("client", index, "finished")
+        
+    else:
+        #client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --mbps=100 pcaps/client%s.pcap' % (index, index))
+        #client.sendCmd('python3 iperf_infinite.py -u -b 100m')
+        client.sendCmd('python3 trafegao.py')
     print(client.waiting)
 
 #h2 tcpreplay -i h2-eth0 -l 0 --multiplier=100000 /home/reiner/Mestrado/pcaps/client2.pcap
@@ -151,6 +156,12 @@ if __name__ == '__main__':
             start_server(server)
             for i in range(1, 15):
                 try:
+                    #Thread(target=start_client, args=(
+                    #    net.getNodeByName(
+                    #        'h' + str(i+1)
+                    #    ),
+                    #    str(i+1)
+                    #)).start()
                     start_client(
                         net.getNodeByName(
                             'h' + str(i+1)

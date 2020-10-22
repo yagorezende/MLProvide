@@ -24,6 +24,7 @@ class Client:
         self.enabled = True
         self.old_time = time.time()
         self.now_speed = 0
+        self.c = 0
         self.error = False
 
     def __str__(self):
