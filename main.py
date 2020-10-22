@@ -158,7 +158,7 @@ if __name__ == "__main__":
             if settings.Q_TABLE_INDEX:
                 trained = "-trained"
             filenames = [
-                f'results-dataset_{settings.STRATEGY.split("_")[0]}/{settings.STRATEGY.split("_")[0]}-compare-aw-{sm}{trained}',
+                f'results-dataset_{settings.STRATEGY.split("_")[0]}/{settings.STRATEGY.split("_")[0]}-compare-cquit-w-{sm}{trained}',
             ]
 
 

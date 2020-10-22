@@ -94,6 +94,12 @@ def start_server(server):
 
 def start_client(client, index):
     #client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --multiplier=100000 pcaps/client%s.pcap' % (index, index))
+
+    while int(index) == 3:
+        client.sendCmd('tcpreplay -i h%s-eth0 -l 40000 --mbps=100 pcaps/client%s.pcap' % (index, index))
+        print(client.waiting)
+        sleep(30)
+
     client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --mbps=100 pcaps/client%s.pcap' % (index, index))
     #client.sendCmd('python3 iperf_infinite.py -u -b 100m')
     print(client.waiting)

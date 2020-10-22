@@ -60,7 +60,7 @@ Q_INDEXES = dict(
     },
 )
 
-STRATEGY = 'q_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
+STRATEGY = 'fuzzy_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'softmax'  # eep, softmax
 TEMPERATURE = 1
@@ -68,7 +68,7 @@ STATE_FILE = f"results-states/states-{STRATEGY}"
 #Q_TABLE_INDEX = Q_INDEXES[STRATEGY][TRAFFIC][EXPLORATION]
 Q_TABLE_INDEX = False
 Q_TABLE_UPDATE_EVERYSTEP = True
-TEST_STATES_RANGE = range(3, 50)
+TEST_STATES_RANGE = False#range(3, 50)
 
 
 
