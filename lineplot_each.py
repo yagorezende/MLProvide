@@ -45,11 +45,12 @@ if __name__ == "__main__":
     sm = "-aw--trained"  # sm, -VT,
 
     elements = [
-        (f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt", 'fsl'),
-        (f"results-dataset_fql/fql-compare{sm}#-5-1.txt", 'fql'),
-        (f"results-dataset_fuzzy/fuzzy-compare{sm}-2-#.txt", 'fis'),
-        (f"results-dataset_q/q-compare{sm}#-5-1.txt", 'q'),
-        (f"results-dataset_sarsa/sarsa-compare{sm}#-5-1.txt", 'sarsa'),
+        #(f"results-dataset_fsl/fsl-compare{sm}#-5-1.txt", 'fsl'),
+        #(f"results-dataset_fql/fql-compaere{sm}#-5-1.txt", 'fql'),
+        #(f"results-dataset_fuzzy/fuzzy-compare{sm}-2-#.txt", 'fis'),
+        (f"results-dataset_fuzzy/fuzzy-compare-cquit-w--sm-2-#.txt", 'fis'),
+        #(f"results-dataset_q/q-compare{sm}#-5-1.txt", 'q'),
+        #(f"results-dataset_sarsa/sarsa-compare{sm}#-5-1.txt", 'sarsa'),
     ]
     for i in elements:
-        plot_time(i[0], output=i[1])
+        plot_time(i[0], output=i[1], number=3)

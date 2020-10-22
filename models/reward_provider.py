@@ -61,6 +61,11 @@ class RewardProvider:
         for client in self.clients:
             #print("begin client")
             speed = client.speed()
+            print("CLIENT",client.id, speed)
+            if speed < 2000:
+                client.enabled = False
+            else:
+                client.enabled = True
             #print("speed")
             client.set_nbw(speed)
             speeds += speed
