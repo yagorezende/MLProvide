@@ -96,7 +96,7 @@ def start_server(server):
 def start_client(client, index):
     #client.sendCmd('tcpreplay -i h%s-eth0 -l 0 --multiplier=100000 pcaps/client%s.pcap' % (index, index))
 
-    if  int(index) in [3, 5,]:
+    if  int(index) in [3, 5, 7, 9, 11]:
         #print("client", index, "begin")
         #client.sendCmd('tcpreplay -i h%s-eth0 -l 200000 --mbps=100 pcaps/client%s.pcap' % (index, index))
         client.sendCmd('python3 trafegao.py --inout')
