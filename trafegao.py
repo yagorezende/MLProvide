@@ -17,10 +17,10 @@ if __name__ == '__main__':
 
     if args.inout:
         while 1:
-            cmd = f"tcpreplay -i h{index}-eth0 -l 80000 --mbps=100 /home/reiner/Mestrado/pcaps/client{index}.pcap"
+            cmd = f"tcpreplay -i h{index}-eth0 -l 160000 --mbps=100 /home/reiner/Mestrado/pcaps/client{index}.pcap"
             print(cmd)
             os.system(cmd)
-            sleep(30)
+            sleep(60)
     cmd = f"tcpreplay -i h{index}-eth0 -l 0 --mbps=100 /home/reiner/Mestrado/pcaps/client{index}.pcap"
     print(cmd)
     os.system(cmd)
