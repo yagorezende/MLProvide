@@ -392,7 +392,7 @@ class Agent(object):
         return others_below, serverload, client_load
 
     def fuzzy_step(self, clients):
-        time.sleep(random.random())
+        #time.sleep(random.random())
         self.client.update()
         others_below, serverload, client_load = self.get_fuzzy_variables(clients)
         self.do_fuzzy_action(settings.FLS.get_bw(
