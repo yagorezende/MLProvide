@@ -23,7 +23,7 @@ LOCK_ALPHA = 0.1
 GAMMA = 1
 EPSILON = 0.15
 REPEAT_COUNT = 0
-STATES = 5                 # Estados USADOS 5
+STATES = 26                 # Estados USADOS 5
 ACTIONS = 2
 MAIN_FILE = "general_client_fql.txt"
 
@@ -60,7 +60,7 @@ Q_INDEXES = dict(
     },
 )
 
-STRATEGY = 'fsl_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
+STRATEGY = 'q_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'softmax'  # eep, softmax
 TEMPERATURE = 1
