@@ -60,7 +60,7 @@ Q_INDEXES = dict(
     },
 )
 
-STRATEGY = 'q_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
+STRATEGY = 'sarsa_step'  # fuzzy_step, fql_step, fsl_step, q_step,sarsa_step
 TRAFFIC = "VT"
 EXPLORATION = 'softmax'  # eep, softmax
 TEMPERATURE = 1
