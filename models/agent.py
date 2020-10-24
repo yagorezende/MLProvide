@@ -24,9 +24,9 @@ class Agent(object):
 
         "File for dump data"
         self.file = f"client_{str(self.client.id)}.txt"
-        f = open(self.file, "w+")
-        f.write("")
-        f.close()
+        #f = open(self.file, "w+")
+        #f.write("")
+        #f.close()
 
         "Ambiente"
         self.ACTION_SPACE = len(self.action_map(_range=_range))
