@@ -1,4 +1,4 @@
-class DC:
+class DataCenter:
     def __init__(self, cap, id=1):
         self.id = id
         self.cap = cap

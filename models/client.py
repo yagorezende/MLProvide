@@ -1,22 +1,23 @@
-from .ryuapi import RyuApi
-from .agent import Agent, Bcolors, Mlog
+from ai.agent import Agent
+from controller.ryu_controller import RyuController
+from util.utils import Bcolors, Mlog
 import time
-from . import settings
+from configs import settings
 import math
-from .datacenter import DC
+
 
 class Client:
-    def __init__(self, id, bw, dc, states=settings.STATES, bs=True):
+    def __init__(self, id, bw, controller: RyuController, states=settings.STATES, bs=True, ):
         self.id = id
         self.bw = bw
         self.nbw = bw
         self.new_nbw = bw
-        self.dc = dc
+        self.datacenter = controller.api.datacenter
         self.dpid = id
-        self.rapi = RyuApi(_dc=self.dc)
+        self.rapi = controller.api
         if bs:
             self.bootstrap()
-            self.agent = Agent(self, dc, states=states)
+            self.agent = Agent(self, self.datacenter, states=states)
         self.nbw_bw = 1
         self.nbw_rate = 1
         self.bytes = 0
@@ -131,6 +132,7 @@ class Client:
 
 
 if __name__ == "__main__":
-    DC = DC(cap=settings.MAX_SERVER_LOAD)
+    from models.datacenter import DataCenter
+    dc = DataCenter(cap=settings.MAX_SERVER_LOAD)
     c = Client(2, 50000, bs=False)
     print(c.get_rate())

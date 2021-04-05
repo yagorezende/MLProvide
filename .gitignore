@@ -1,0 +1,10 @@
+venv
+venv/
+venv2
+venv2/
+outputs/*
+.idea
+.idea/**/*
+.idea/*
+mestrado/results-*
+*.pyc
